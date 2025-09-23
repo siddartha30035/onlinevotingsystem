@@ -15,6 +15,7 @@ function Dashboard() {
           <Link to="/dashboard/candidates">Candidate Management</Link>
           <Link to="/dashboard/elections">Fetch Elections</Link>
           <Link to="/dashboard/manage-elections">Election Management</Link>
+          <Link to="/dashboard/results">📊 Results</Link> {/* Added Results page link */}
         </div>
 
         <div className="nav-right">
