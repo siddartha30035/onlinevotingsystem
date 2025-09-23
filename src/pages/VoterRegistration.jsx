@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/VoterRegistration.css";
+import { registerVoter } from "../services/voterService"; // API service
 
 const VoterRegistration = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     voterId: "",
@@ -19,28 +22,32 @@ const VoterRegistration = () => {
     const { name, value } = e.target;
 
     if (name === "voterId") {
-      // Voter ID validation: uppercase letters and numbers only
       const regex = /^[A-Z0-9]+$/;
-      if (!regex.test(value)) {
-        setVoterIdError(
-          "Voter ID must contain only uppercase letters and numbers"
-        );
-      } else {
-        setVoterIdError("");
-      }
+      setVoterIdError(!regex.test(value) ? "Voter ID must contain only uppercase letters and numbers" : "");
     }
 
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (voterIdError) {
       alert("Please fix errors before submitting!");
       return;
     }
-    console.log(formData);
-    // Add registration logic here
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    try {
+      await registerVoter(formData);
+      alert("Registration successful!");
+      navigate("/"); // redirect to login
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
@@ -56,7 +63,7 @@ const VoterRegistration = () => {
               name="voterId"
               value={formData.voterId}
               onChange={handleChange}
-              placeholder="Enter your Voter ID (e.g.,2C3D23GF)"
+              placeholder="Enter Voter ID (e.g., 2C3D23GF)"
               required
             />
           </div>

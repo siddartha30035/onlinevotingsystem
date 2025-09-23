@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Outlet } from "react-router-dom"; // import Outlet
 import "../styles/dashboard.css";
 
 function Dashboard() {
@@ -15,7 +15,7 @@ function Dashboard() {
           <Link to="/dashboard/candidates">Candidate Management</Link>
           <Link to="/dashboard/elections">Fetch Elections</Link>
           <Link to="/dashboard/manage-elections">Election Management</Link>
-          <Link to="/dashboard/results">📊 Results</Link> {/* Added Results page link */}
+          <Link to="/dashboard/results">📊 Results</Link>
         </div>
 
         <div className="nav-right">
@@ -29,10 +29,13 @@ function Dashboard() {
         </div>
       </div>
 
-      {/* Welcome Message */}
+      {/* Dashboard Content */}
       <div className="dashboard-content">
         <h1 className="welcome-message">Welcome, Voter!</h1>
         <p className="subtext">Manage elections, candidates, and voters from here.</p>
+
+        {/* This is where nested pages like VoterManagement will render */}
+        <Outlet />
       </div>
     </div>
   );

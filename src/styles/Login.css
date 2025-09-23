@@ -107,3 +107,15 @@ button {
 button:hover {
   background-color: #cc0000;
 }
+.register-link {
+  color: #ff4d4d;        /* Bright red for visibility */
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.register-link:hover {
+  color: #cc0000;        /* Darker red on hover */
+  text-decoration: none;  /* Optional: remove underline on hover */
+}
+
